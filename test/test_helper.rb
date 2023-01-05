@@ -9,5 +9,13 @@ class ActiveSupport::TestCase
   # Don't use fixtures.
   # fixtures :all
 
-  10.times {|n| User.create!(name: "User #{n}") }
+  def self.load_data_into_test_db
+    10.times {|n| User.create!(name: "User #{n}") }
+  end
+
+  parallelize_setup do
+    load_data_into_test_db
+  end
+
+  load_data_into_test_db
 end
